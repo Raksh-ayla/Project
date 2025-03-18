@@ -2,7 +2,7 @@ import React from "react";
 
 const Map: React.FC = () => {
     return (
-        <section className="flex justify-center items-center min-h-screen bg-red-400 px-4 md:px-8">
+        <section className="flex justify-center items-center min-h-screen bg-white px-4 md:px-8">
             <div className="bg-white shadow-xl rounded-xl overflow-hidden max-w-5xl w-full flex flex-col md:flex-row relative">
 
                 <div className="w-full md:w-1/2 p-6 md:p-20 relative z-10">

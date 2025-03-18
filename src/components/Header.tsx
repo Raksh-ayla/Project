@@ -1,49 +1,87 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaArrowRight, FaBars } from "react-icons/fa";
-import { useState } from "react";
+import { FaArrowRight, FaBars, FaTimes } from "react-icons/fa";
 
 const Header: React.FC = () => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <header className="w-full bg-orange-400 py-4 px-6 shadow-md">
-            <div className="container mx-auto flex items-center justify-between flex-wrap">
-                <div className="flex items-center space-x-4 md:space-x-20">
-                    <img src="/Link.png" alt="Logo" className="h-8 md:h-12 w-auto" />
-                    <nav className={`md:flex ${isMobileMenuOpen ? 'block' : 'hidden'} w-full md:w-auto`}>
-                        <ul className="flex flex-col md:flex-row space-x-0 text-sm md:text-lg md:space-x-7">
-                            <li><Link to="/" className="text-black hover:text-gray-700 transition font-medium py-2 md:py-0">Home</Link></li>
-                            <li><Link to="/courses" className="text-black hover:text-gray-700 transition font-medium py-2 md:py-0">Courses</Link></li>
-                            <li><Link to="/aboutus" className="text-black hover:text-gray-700 transition font-medium py-2 md:py-0">About Us</Link></li>
-                            <li><Link to="/pages" className="text-black hover:text-gray-700 transition font-medium py-2 md:py-0">Pages</Link></li>
-                            <li><Link to="/blog" className="text-black hover:text-gray-700 transition font-medium py-2 md:py-0">Blog</Link></li>
-                            <li><Link to="/contact" className="text-black hover:text-gray-700 transition font-medium py-2 md:py-0">Contact</Link></li>
+        <header className="w-full bg-slate-300 py-4 px-6 shadow-md">
+            <div className="container mx-auto flex items-center justify-between">
+                <div className="flex items-center space-x-6">
+                    <img src="/Link.png" alt="Logo" className="h-12 w-auto" />
+                    <nav className="hidden md:flex">
+                        <ul className="flex space-x-7 text-lg">
+                            {["Home", "Courses", "About Us", "Pages", "Blog", "Contact"].map((item, index) => (
+                                <li key={index}>
+                                    <Link
+                                        to={`/${item.toLowerCase().replace(/\s+/g, "")}`}
+                                        className="text-black hover:text-gray-700 transition font-medium"
+                                    >
+                                        {item}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </nav>
                 </div>
-                <div className="flex items-center">
-                    <div className="hidden md:block">
-                        <Link to="/login" className="bg-green-500 text-white px-4 py-2 rounded-full flex items-center space-x-2 hover:bg-green-600 transition">
-                            <span>Login/Register</span>
-                            <FaArrowRight />
-                        </Link>
-                    </div>
-                    <button className="md:hidden text-black focus:outline-none" onClick={toggleMobileMenu}>
-                        <FaBars className="h-6 w-6" />
-                    </button>
-                </div>
-                <div className={`mt-4 md:mt-0 md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} w-full`}>
-                    <Link to="/login" className="bg-green-500 text-white px-4 py-2 rounded-full flex items-center space-x-2 hover:bg-green-600 transition w-full justify-center">
+                <div className="hidden md:flex">
+                    <Link
+                        to="/login"
+                        className="bg-green-500 text-white px-4 py-2 rounded-full flex items-center space-x-2 hover:bg-green-600 transition"
+                    >
                         <span>Login/Register</span>
                         <FaArrowRight />
                     </Link>
                 </div>
+
+                <button
+                    className="md:hidden text-gray-700 text-2xl"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Toggle Menu"
+                >
+                    {isMenuOpen ? <FaTimes /> : <FaBars />}
+                </button>
             </div>
+
+            <nav
+                className={`fixed top-0 left-0 w-full h-full bg-white shadow-lg transform ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
+                    } transition-transform duration-300 ease-in-out z-50`}
+            >
+                <div className="flex justify-end p-5">
+                    <button
+                        className="text-gray-700 text-3xl"
+                        onClick={() => setIsMenuOpen(false)}
+                        aria-label="Close Menu"
+                    >
+                        <FaTimes />
+                    </button>
+                </div>
+                <ul className="flex flex-col items-center space-y-6 text-lg mt-10">
+                    {["Home", "Courses", "About Us", "Pages", "Blog", "Contact"].map((item, index) => (
+                        <li key={index}>
+                            <Link
+                                to={`/${item.toLowerCase().replace(/\s+/g, "")}`}
+                                className="text-black hover:text-gray-700 transition font-medium text-xl"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                {item}
+                            </Link>
+                        </li>
+                    ))}
+
+                    <li>
+                        <Link
+                            to="/login"
+                            className="bg-green-500 text-white px-5 py-2 rounded-full flex items-center space-x-2 hover:bg-green-600 transition text-xl"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            <span>Login/Register</span>
+                            <FaArrowRight />
+                        </Link>
+                    </li>
+                </ul>
+            </nav>
         </header>
     );
 };

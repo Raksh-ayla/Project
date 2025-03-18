@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero: React.FC = () => {
     return (
-        <div className="flex flex-col md:flex-row items-center justify-between bg-lime-100 text-black p-4 md:p-10 relative mb-0.5">
+        <div className="flex flex-col md:flex-row items-center justify-between bg-white text-black p-4 md:p-10 relative mb-0.5">
             <div className="max-w-lg">
                 <div className="flex items-center space-x-2">
                     <img src="fi1.png" alt="Logo" className="w-12 h-12 md:w-16 md:h-16" />
@@ -44,8 +44,6 @@ const Hero: React.FC = () => {
                 <div className="absolute left-0 w-1/2 h-5/6 bg-no-repeat bg-left bg-cover hidden md:block" style={{ backgroundImage: "url('./bg1.png')", transform: "translateY(33px)" }} />
                 <img src="./fi3.png" alt="Student" className="relative z-10 max-w-sm md:max-w-md rounded-lg ml-auto -translate-y-5" />
                 <div className="absolute right-10 w-1/2 h-5/6 bg-no-repeat bg-right bg-cover hidden md:block" style={{ backgroundImage: "url('./bg2.png')", transform: "translateY(32px)" }} />
-
-                {/* Mobile Background Images */}
                 <div className="absolute inset-0 bg-no-repeat bg-center bg-contain md:hidden" style={{ backgroundImage: "url('./bg1.png')" }} />
                 <div className="absolute inset-0 bg-no-repeat bg-center bg-contain md:hidden" style={{ backgroundImage: "url('./bg2.png')" }} />
             </div>
